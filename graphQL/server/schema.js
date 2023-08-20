@@ -29,6 +29,9 @@ const schema = buildSchema(`
         getAllUsers: [User]
         getUser(id: ID): User
     }
+    type Mutation {
+        createUser(input: UserInput):User
+    }
 `);
 
 module.exports = schema;
