@@ -55,5 +55,66 @@ namespace route256
                 Console.WriteLine(sum);
             }
         }
+
+        private void Stikler()
+        {
+            string inString = Console.ReadLine();
+            int strCount = int.Parse(Console.ReadLine());
+            for (int i = 0; i < strCount; i++)
+            {
+                var sticker = Console.ReadLine().Split(new char[] { ' ' });
+                int start = int.Parse(sticker[0]);
+                int end = int.Parse(sticker[1]);
+                inString = inString.Remove(start - 1, end - start + 1);
+                inString = inString.Insert(start - 1, sticker[2]);
+            }
+            Console.WriteLine(inString);
+        }
+
+        private void Condi()
+        {
+            int setCount = int.Parse(Console.ReadLine());
+            var temp = new List<List<int>>();
+            for (int i = 0; i < setCount; i++)
+            {
+                temp.Add(new List<int>());
+                int employeeCount = int.Parse(Console.ReadLine());
+                int start = 15;
+                int end = 30;
+                for (int j = 0; j < employeeCount; j++)
+                {
+                    var empInput = Console.ReadLine().Split(new char[] { ' ' });
+                    int tempValue = int.Parse(empInput[1]);
+                    if (empInput[0] == ">=" && start < tempValue)
+                    {
+                        start = tempValue;
+                    }
+                    else if (empInput[0] == "<=" && tempValue < end)
+                    {
+                        end = tempValue;
+                    }
+
+
+                    if (start <= end)
+                    {
+                        temp[i].Add((start + end) / 2);
+                    }
+                    else
+                    {
+                        temp[i].Add(-1);
+                    }
+                }
+            }
+
+            // Output.
+            for (int i = 0; i < setCount; i++)
+            {
+                for (int j = 0; j < temp[i].Count; j++)
+                {
+                    Console.WriteLine(temp[i][j]);
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }
