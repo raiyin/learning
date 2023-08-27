@@ -7,40 +7,19 @@ namespace route256
 {
     internal class Program
     {
-
-
         static void Main(string[] args)
         {
-            int count = int.Parse(Console.ReadLine());
-            List<Dictionary<int, int>> prices = new List<Dictionary<int, int>>();
-
-            for (int i = 0; i < count; i++)
+            string inString = Console.ReadLine();
+            int strCount = int.Parse(Console.ReadLine());
+            for (int i = 0; i < strCount; i++)
             {
-                int pricesCount = int.Parse(Console.ReadLine());
-                prices.Add(new Dictionary<int, int>());
-                var parts = Console.ReadLine().Split(new char[] { ' ' }).Select(item => int.Parse(item));
-                foreach (var part in parts)
-                {
-                    if (!prices[i].ContainsKey(part))
-                    {
-                        prices[i].Add(part, 1);
-                    }
-                    else
-                    {
-                        prices[i][part]++;
-                    }
-                }
+                var sticker = Console.ReadLine().Split(new char[] { ' ' });
+                int start = int.Parse(sticker[0]);
+                int end = int.Parse(sticker[1]);
+                inString = inString.Remove(start - 1, end - start + 1);
+                inString = inString.Insert(start - 1, sticker[2]);
             }
-
-            for (int i = 0; i < count; i++)
-            {
-                int sum = 0;
-                foreach (var key in prices[i].Keys)
-                {
-                    sum += prices[i][key] / 3 * 2 * key + (prices[i][key] % 3) * key;
-                }
-                Console.WriteLine(sum);
-            }
+            Console.WriteLine(inString);
         }
     }
 }
