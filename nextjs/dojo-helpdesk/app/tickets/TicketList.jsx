@@ -4,7 +4,7 @@ import React from 'react';
 async function getTickets() {
     const res = await fetch(`http://localhost:4000/tickets`, {
         next: {
-            revalidate: 0
+            revalidate: 60 * 60 * 12
         }
     });
     return res.json();
