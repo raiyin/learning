@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from "next/navigation";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
     const res = await fetch(`http://localhost:4000/tickets`);
