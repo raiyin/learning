@@ -2,6 +2,9 @@ import Link from 'next/link';
 import React from 'react';
 
 async function getTickets() {
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
     const res = await fetch(`http://localhost:4000/tickets`, {
         next: {
             revalidate: 60 * 60 * 12
