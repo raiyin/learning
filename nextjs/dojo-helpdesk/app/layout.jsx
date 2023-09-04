@@ -21,3 +21,4 @@ export default function RootLayout({ children }) {
         </html>
     );
 }
+// json-server --watch --port 4000 ./_data/db.json
