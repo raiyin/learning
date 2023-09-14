@@ -1,16 +1,16 @@
 package application
 
-import(
-"net/http"
+import (
+	"net/http"
 )
 
-type App struct{
+type App struct {
 	router http.Handler
 }
 
-func New() *App{
-	app:= &App{
-		router: loadRoutes()
+func New() *App {
+	app := &App{
+		router: loadRoutes(),
 	}
 
 	return app
