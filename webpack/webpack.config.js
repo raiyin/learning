@@ -1,6 +1,7 @@
 const path = require('path') // path module import
 
 module.exports = {
+    mode: 'development', // 'production'
     entry: path.resolve(__dirname, 'src', 'index.js'), // __dirname - current dir, entry - app entry point, there may be several of them
     output: {
         path: path.resolve(__dirname, 'build'),
