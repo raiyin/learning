@@ -1,5 +1,6 @@
 const path = require('path') // path module import
 const HtmlWebpackPlugin = require('html-webpack-plugin') // to dynamicaly insert builded js-file in the index.html
+const webpack = require('webpack')
 
 module.exports = (env) => { // чтобы настраивать сборку с помощью параметров
     return {
@@ -11,7 +12,8 @@ module.exports = (env) => { // чтобы настраивать сборку с
             clean: true, // delete old build, because browser cache files
         },
         plugins: [
-            new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }) // будет подставлять файл сборки в html файл, tempalate нужен, так как иначе будет создаваться html-файл по умолчанию
+            new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }), // будет подставлять файл сборки в html файл, tempalate нужен, так как иначе будет создаваться html-файл по умолчанию
+            new webpack.ProgressPlugin(), // plugin to show progress of building of the project
         ]
     }
 }
