@@ -1,9 +1,17 @@
-const path = require('path')                               // path module import
-const HtmlWebpackPlugin = require('html-webpack-plugin')   // to dynamicaly insert builded js-file in the index.html
-const webpack = require('webpack')
+import path from 'path';                              // const path = require('path')   // path module import
+import webpack from 'webpack';                        // const HtmlWebpackPlugin = require('html-webpack-plugin')   // to dynamicaly insert builded js-file in the index.html
+import HtmlWebpackPlugin from 'html-webpack-plugin';  // const webpack = require('webpack')
 
-module.exports = (env) => {                                // чтобы настраивать сборку с помощью параметров
-    return {
+// Типизируем переменные окружения
+type Mode = 'production' | 'development';
+
+interface EnvVariables {
+    mode: Mode;
+}
+
+export default (env: EnvVariables) => {                                // чтобы настраивать сборку с помощью параметров
+    const config: webpack.Configuration =
+    {
         mode: env.mode ?? 'development',                   // 'production'
         entry: path.resolve(__dirname, 'src', 'index.ts'), // __dirname - current dir, entry - app entry point, there may be several of them
         output: {
@@ -28,4 +36,5 @@ module.exports = (env) => {                                // чтобы нас�
             extensions: ['.tsx', '.ts', '.js'],            // extension to process
         },
     }
+    return config;
 }
