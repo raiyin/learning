@@ -12,6 +12,9 @@ interface EnvVariables {
 }
 
 export default (env: EnvVariables) => {                                // чтобы настраивать сборку с помощью параметров
+
+    const isDev = env.mode === 'development';
+
     const config: webpack.Configuration =
     {
         mode: env.mode ?? 'development',                   // 'production'
@@ -23,8 +26,9 @@ export default (env: EnvVariables) => {                                // что
         },
         plugins: [
             new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }), // будет подставлять файл сборки в html файл, tempalate нужен, так как иначе будет создаваться html-файл по умолчанию
-            new webpack.ProgressPlugin(),                  // plugin to show progress of building of the project
-        ],
+            // медленный
+            isDev && new webpack.ProgressPlugin(),                  // plugin to show progress of building of the project
+        ].filter(Boolean),
         module: {
             rules: [
                 {
@@ -37,10 +41,11 @@ export default (env: EnvVariables) => {                                // что
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],            // extension to process
         },
-        devServer: {
+        devtool: isDev && 'inline-source-map',
+        devServer: isDev ? {
             port: env.port ?? 3000,
             open: true
-        }
+        } : undefined,
     }
     return config;
 }
