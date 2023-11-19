@@ -1,12 +1,14 @@
 import path from 'path';                              // const path = require('path')   // path module import
 import webpack from 'webpack';                        // const HtmlWebpackPlugin = require('html-webpack-plugin')   // to dynamicaly insert builded js-file in the index.html
 import HtmlWebpackPlugin from 'html-webpack-plugin';  // const webpack = require('webpack')
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
 // Типизируем переменные окружения
 type Mode = 'production' | 'development';
 
 interface EnvVariables {
     mode: Mode;
+    port: number;
 }
 
 export default (env: EnvVariables) => {                                // чтобы настраивать сборку с помощью параметров
@@ -35,6 +37,10 @@ export default (env: EnvVariables) => {                                // что
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],            // extension to process
         },
+        devServer: {
+            port: env.port ?? 3000,
+            open: true
+        }
     }
     return config;
 }
