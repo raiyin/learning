@@ -33,8 +33,12 @@ export default (env: EnvVariables) => {                                // что
             rules: [
                 // порядок важен
                 {
-                    test: /\.css$/i,
-                    use: ["style-loader", "css-loader"],
+                    test: /\.s[ac]ss$/i,
+                    use: [
+                        "style-loader",
+                        "css-loader",
+                        "sass-loader"
+                    ]
                 },
                 {
                     // ts-loader умеет рвботать с JSX
