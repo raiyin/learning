@@ -31,6 +31,11 @@ export default (env: EnvVariables) => {                                // что
         ].filter(Boolean),
         module: {
             rules: [
+                // порядок важен
+                {
+                    test: /\.css$/i,
+                    use: ["style-loader", "css-loader"],
+                },
                 {
                     // ts-loader умеет рвботать с JSX
                     // Если бы мы не использовали ts, нужен был бы babel-loader
