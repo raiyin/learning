@@ -18,7 +18,7 @@ export default (env: EnvVariables) => {                                // что
     const config: webpack.Configuration =
     {
         mode: env.mode ?? 'development',                   // 'production'
-        entry: path.resolve(__dirname, 'src', 'index.ts'), // __dirname - current dir, entry - app entry point, there may be several of them
+        entry: path.resolve(__dirname, 'src', 'index.tsx'), // __dirname - current dir, entry - app entry point, there may be several of them
         output: {
             path: path.resolve(__dirname, 'build'),
             filename: '[name].[contenthash].js',           // dynamic build name, to not to cache build files
@@ -32,6 +32,8 @@ export default (env: EnvVariables) => {                                // что
         module: {
             rules: [
                 {
+                    // ts-loader умеет рвботать с JSX
+                    // Если бы мы не использовали ts, нужен был бы babel-loader
                     test: /\.tsx?$/,                       // loader for ts and tsx files
                     use: 'ts-loader',                      // name of the loader
                     exclude: /node_modules/,               // not process this folder
