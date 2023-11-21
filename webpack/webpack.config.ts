@@ -1,68 +1,27 @@
 import path from 'path';                              // const path = require('path')   // path module import
-import webpack from 'webpack';                        // const HtmlWebpackPlugin = require('html-webpack-plugin')   // to dynamicaly insert builded js-file in the index.html
-import HtmlWebpackPlugin from 'html-webpack-plugin';  // const webpack = require('webpack')
-import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'; // для получения css в отдельном файле и лучшего его понимания
+import webpack from 'webpack';                        // const HtmlWebpackPlugin = require('html-webpack-plugin')   // to dynamicaly insert build
+import { buildWebpack } from './config/build/buildWebpack';
+import { BuildMode, BuildPaths } from './config/build/types/types';
 
-// Типизируем переменные окружения
-type Mode = 'production' | 'development';
 
 interface EnvVariables {
-    mode: Mode;
+    mode: BuildMode;
     port: number;
 }
 
-export default (env: EnvVariables) => {                                // чтобы настраивать сборку с помощью параметров
+export default (env: EnvVariables) => {
 
-    const isDev = env.mode === 'development';
-    const isProd = env.mode === 'production';
-
-    const config: webpack.Configuration =
-    {
-        mode: env.mode ?? 'development',                   // 'production'
-        entry: path.resolve(__dirname, 'src', 'index.tsx'), // __dirname - current dir, entry - app entry point, there may be several of them
-        output: {
-            path: path.resolve(__dirname, 'build'),
-            filename: '[name].[contenthash].js',           // dynamic build name, to not to cache build files
-            clean: true,                                   // delete old build, because browser cache files
-        },
-        plugins: [
-            new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }), // будет подставлять файл сборки в html файл, tempalate нужен, так как иначе будет создаваться html-файл по умолчанию
-            // медленный
-            isDev && new webpack.ProgressPlugin(),                  // plugin to show progress of building of the project
-            isProd && new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash:8].css',
-                chunkFilename: 'css/[name].[contenthash:8].css',
-            }),
-        ].filter(Boolean),
-        module: {
-            rules: [
-                // порядок важен
-                {
-                    test: /\.s[ac]ss$/i,
-                    use: [
-                        isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-                        "css-loader",
-                        "sass-loader"
-                    ]
-                },
-                {
-                    // ts-loader умеет рвботать с JSX
-                    // Если бы мы не использовали ts, нужен был бы babel-loader
-                    test: /\.tsx?$/,                       // loader for ts and tsx files
-                    use: 'ts-loader',                      // name of the loader
-                    exclude: /node_modules/,               // not process this folder
-                },
-            ],
-        },
-        resolve: {
-            extensions: ['.tsx', '.ts', '.js'],            // extension to process
-        },
-        devtool: isDev && 'inline-source-map',
-        devServer: isDev ? {
-            port: env.port ?? 3000,
-            open: true
-        } : undefined,
+    const paths: BuildPaths = {
+        output: path.resolve(__dirname, 'build'),
+        entry: path.resolve(__dirname, 'src', 'index.tsx'),
+        html: path.resolve(__dirname, 'public', 'index.html')
     }
+
+    const config: webpack.Configuration = buildWebpack({
+        port: env.port ?? 3000,
+        mode: env.mode ?? 'development',
+        paths: paths
+    })
+
     return config;
 }
