@@ -2,6 +2,7 @@ import path from 'path';                              // const path = require('p
 import webpack from 'webpack';                        // const HtmlWebpackPlugin = require('html-webpack-plugin')   // to dynamicaly insert builded js-file in the index.html
 import HtmlWebpackPlugin from 'html-webpack-plugin';  // const webpack = require('webpack')
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'; // для получения css в отдельном файле и лучшего его понимания
 
 // Типизируем переменные окружения
 type Mode = 'production' | 'development';
@@ -14,6 +15,7 @@ interface EnvVariables {
 export default (env: EnvVariables) => {                                // чтобы настраивать сборку с помощью параметров
 
     const isDev = env.mode === 'development';
+    const isProd = env.mode === 'production';
 
     const config: webpack.Configuration =
     {
@@ -28,6 +30,10 @@ export default (env: EnvVariables) => {                                // что
             new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }), // будет подставлять файл сборки в html файл, tempalate нужен, так как иначе будет создаваться html-файл по умолчанию
             // медленный
             isDev && new webpack.ProgressPlugin(),                  // plugin to show progress of building of the project
+            isProd && new MiniCssExtractPlugin({
+                filename: 'css/[name].[contenthash:8].css',
+                chunkFilename: 'css/[name].[contenthash:8].css',
+            }),
         ].filter(Boolean),
         module: {
             rules: [
@@ -35,7 +41,7 @@ export default (env: EnvVariables) => {                                // что
                 {
                     test: /\.s[ac]ss$/i,
                     use: [
-                        "style-loader",
+                        isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
                         "css-loader",
                         "sass-loader"
                     ]
