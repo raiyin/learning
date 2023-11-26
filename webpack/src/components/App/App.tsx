@@ -6,10 +6,16 @@ import avatarPng from '@/assets/avatar.png'
 import avatarJpg from '@/assets/avatar.jpg'
 import Image from '@/assets/app-image.svg'
 
+// TREE SHAKING~ lazy loading and decomposing
+function TODO(a: number) {
+    console.log('TODOFUNCTION')
+}
+
 export const App = () => {
     const [count, setCount] = useState<number>(0)
 
     const increment = () => setCount(prev => prev + 1)
+    TODO(5);
 
     if (__PLATFORM__ === 'desktop') {
         return <div>ISDESKTOP</div>
