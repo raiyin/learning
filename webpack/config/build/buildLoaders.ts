@@ -70,11 +70,20 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         ]
     }
 
+    const babalLoader = {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+            loader: "babel-loader",
+        }
+    }
+
     return [
         // порядок важен
         assetLoader,
         scssLoader,
-        tsLoader,
+        //tsLoader,
+        babalLoader,
         svgrLoader
     ]
 }
