@@ -15,18 +15,17 @@ export const App = () => {
     const [count, setCount] = useState<number>(0)
 
     const increment = () => setCount(prev => prev + 1)
-    TODO(5);
-
+    // TODO(5);
+    //
     // if (__PLATFORM__ === 'desktop') {
     //     return <div>ISDESKTOP</div>
     // }
     // if (__PLATFORM__ === 'mobile') {
     //     return <div>ISMOBILE</div>
     // }
-
-    if (__ENV__ === 'development') {
-        // addDevTools();
-    }
+    // if (__ENV__ === 'development') {
+    //     // addDevTools();
+    // }
 
     return (
         <div>
@@ -38,7 +37,7 @@ export const App = () => {
                 <img width={100} height={100} src={avatarJpg} alt="" />
             </div>
             <div>
-                <Image style={{ color: 'green' }} width={50} height={50} />
+                <Image style={{ color: 'black' }} width={50} height={50} />
             </div>
             <Link to={'/about'}>about</Link>
             <br />
