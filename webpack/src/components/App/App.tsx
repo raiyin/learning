@@ -7,14 +7,23 @@ import avatarJpg from '@/assets/avatar.jpg'
 import Image from '@/assets/app-image.svg'
 
 // TREE SHAKING~ lazy loading and decomposing
-function TODO(a: number) {
-    console.log('TODOFUNCTION')
+function TODO() {
+    TODO2()
+}
+
+function TODO2() {
+    // Для тестирования sourcemap
+    throw new Error();
 }
 
 export const App = () => {
     const [count, setCount] = useState<number>(0)
 
-    const increment = () => setCount(prev => prev + 1)
+    const increment = () => {
+        setCount(prev => prev + 1)
+        TODO();
+    }
+
     // TODO(5);
     //
     // if (__PLATFORM__ === 'desktop') {
