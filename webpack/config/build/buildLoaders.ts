@@ -54,9 +54,16 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     const tsLoader = {
         // ts-loader умеет рвботать с JSX
         // Если бы мы не использовали ts, нужен был бы babel-loader
-        test: /\.tsx?$/,                       // loader for ts and tsx files
-        use: 'ts-loader',                      // name of the loader
         exclude: /node_modules/,               // not process this folder
+        test: /\.tsx?$/,                       // loader for ts and tsx files
+        use: [                      // name of the loader
+            {
+                loader: 'ts-loader',
+                options: {
+                    transpileOnly: true
+                }
+            }
+        ]
     }
 
     return [

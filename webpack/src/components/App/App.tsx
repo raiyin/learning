@@ -17,12 +17,12 @@ export const App = () => {
     const increment = () => setCount(prev => prev + 1)
     TODO(5);
 
-    if (__PLATFORM__ === 'desktop') {
-        return <div>ISDESKTOP</div>
-    }
-    if (__PLATFORM__ === 'mobile') {
-        return <div>ISMOBILE</div>
-    }
+    // if (__PLATFORM__ === 'desktop') {
+    //     return <div>ISDESKTOP</div>
+    // }
+    // if (__PLATFORM__ === 'mobile') {
+    //     return <div>ISMOBILE</div>
+    // }
 
     if (__ENV__ === 'development') {
         // addDevTools();
