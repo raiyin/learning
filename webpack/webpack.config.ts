@@ -1,13 +1,14 @@
 import path from 'path';                              // const path = require('path')   // path module import
 import webpack from 'webpack';                        // const HtmlWebpackPlugin = require('html-webpack-plugin')   // to dynamicaly insert build
 import { buildWebpack } from './config/build/buildWebpack';
-import { BuildMode, BuildPaths } from './config/build/types/types';
+import { BuildMode, BuildPaths, BuildPlatforms } from './config/build/types/types';
 
 
 interface EnvVariables {
-    mode: BuildMode;
-    port: number;
+    mode?: BuildMode;
+    port?: number;
     analyzer?: boolean;
+    platform?: BuildPlatforms;
 }
 
 export default (env: EnvVariables) => {
@@ -23,7 +24,8 @@ export default (env: EnvVariables) => {
         port: env.port ?? 3000,
         mode: env.mode ?? 'development',
         paths: paths,
-        analyzer: env.analyzer
+        analyzer: env.analyzer,
+        platform: env.platform ?? 'desktop'
     })
 
     return config;
