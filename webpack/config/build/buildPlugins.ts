@@ -5,6 +5,7 @@ import { BuildOptions } from "./types/types";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin"
+import path from "path";
 
 export function buildPlugins({ mode, paths, analyzer, platform }: BuildOptions): Configuration['plugins'] {
 
@@ -14,7 +15,7 @@ export function buildPlugins({ mode, paths, analyzer, platform }: BuildOptions):
     const plugins: Configuration['plugins'] = [
         // будет подставлять файл сборки в html файл, tempalate нужен, так как иначе будет создаваться html-файл по умолчанию
         // new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }),
-        new HtmlWebpackPlugin({ template: paths.html }),
+        new HtmlWebpackPlugin({ template: paths.html, favicon: path.resolve(paths.public, 'favicon.ico') }),
         // Для подмены глобальных переменных
         new DefinePlugin({
             __PLATFORM__: JSON.stringify(platform),
