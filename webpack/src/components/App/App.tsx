@@ -13,7 +13,7 @@ function TODO() {
 
 function TODO2() {
     // Для тестирования sourcemap
-    throw new Error();
+    //throw new Error();
 }
 
 export const App = () => {

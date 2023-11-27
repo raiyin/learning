@@ -3,7 +3,6 @@ import { App } from './components/App/App';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Shop } from '@/pages/Shop';
 import { Suspense } from 'react';
-import { LazyAbout } from '@/pages/About/About.lazy';
 import About from '@/pages/About/About';
 
 const root = document.getElementById('root')
