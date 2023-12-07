@@ -16,7 +16,7 @@ const container = createRoot(root)
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />,
+        element: <App />
         children: [
             {
                 path: '/about',
