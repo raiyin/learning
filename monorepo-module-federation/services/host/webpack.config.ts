@@ -1,6 +1,7 @@
 import path from 'path';                              // const path = require('path')   // path module import
 import webpack from 'webpack';                        // const HtmlWebpackPlugin = require('html-webpack-plugin')   // to dynamicaly insert build
-import { BuildMode, BuildPaths, BuildOptions, BuildPlatforms } from '@packages/build-config'
+import { BuildMode, BuildPaths, BuildOptions, BuildPlatforms, buildWebpack } from '@packages/build-config'
+
 
 
 interface EnvVariables {
