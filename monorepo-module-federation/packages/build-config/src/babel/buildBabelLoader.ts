@@ -1,14 +1,13 @@
-import { BuildOptions } from "../types/types";
-import { removeDataTestIdBabelPlugin } from "./removeDataTestIdBabelPlugin";
+import {BuildOptions} from "../types/types";
+import {removeDataTestIdBabelPlugin} from "./removeDataTestIdBabelPlugin";
 
-export function buildBabelLoader({ mode }: BuildOptions) {
-
+export function buildBabelLoader({mode}: BuildOptions) {
     const isDev = mode === 'development';
-    const isProd = mode === 'production';
+    const isProd= mode === 'production';
 
-    const plugins = []
+    const plugins = [];
 
-    if (isProd) {
+    if(isProd) {
         plugins.push([
             removeDataTestIdBabelPlugin,
             {
@@ -33,7 +32,7 @@ export function buildBabelLoader({ mode }: BuildOptions) {
                         }
                     ]
                 ],
-                plugins: plugins.length ? plugins : undefined
+                plugins: plugins.length ? plugins : undefined,
             }
         }
     }

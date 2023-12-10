@@ -1,14 +1,12 @@
-import webpack from 'webpack';
-import { buildLoaders } from './buildLoaders';
-import { buildPlugins } from './buildPlugins';
-import { buildDevServer } from './buildDevServer';
-import { buildResolvers } from './buildResolvers';
-import { BuildOptions } from './types/types';
-
+import webpack from "webpack";
+import {buildDevServer} from "./buildDevServer";
+import {buildLoaders} from "./buildLoaders";
+import {buildPlugins} from "./buildPlugins";
+import {buildResolvers} from "./buildResolvers";
+import {BuildOptions} from "./types/types";
 
 export function buildWebpack(options: BuildOptions): webpack.Configuration {
-
-    const { mode, paths } = options
+    const {mode, paths} = options
     const isDev = mode === 'development';
 
     return {
@@ -16,8 +14,8 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
         entry: paths.entry,
         output: {
             path: paths.output,
-            filename: '[name].[contenthash].js',           // dynamic build name, to not to cache build files
-            clean: true,                                   // delete old build, because browser cache files
+            filename: '[name].[contenthash].js',
+            clean: true
         },
         plugins: buildPlugins(options),
         module: {

@@ -1,11 +1,10 @@
-import { ModuleOptions } from "webpack";
-import { BuildOptions } from "./types/types";
+import {ModuleOptions} from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import ReactRefreshTypescript from "react-refresh-typescript";
-import { buildBabelLoader } from "./babel/buildBabelLoader";
+import ReactRefreshTypeScript from "react-refresh-typescript";
+import {BuildOptions} from "./types/types";
+import {buildBabelLoader} from "./babel/buildBabelLoader";
 
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
-
     const isDev = options.mode === 'development';
 
     const assetLoader = {
@@ -40,65 +39,50 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         options: {
             modules: {
                 localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64:8]'
-            }
-        }
+            },
+        },
     }
 
     const scssLoader = {
         test: /\.s[ac]ss$/i,
         use: [
+            // Creates `style` nodes from JS strings
             isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            // Translates CSS into CommonJS
             cssLoaderWithModules,
-            "sass-loader"
-        ]
+            // Compiles Sass to CSS
+            "sass-loader",
+        ],
     }
 
+
+
     const tsLoader = {
-        // ts-loader умеет рвботать с JSX
-        // Если бы мы не использовали ts, нужен был бы babel-loader
-        exclude: /node_modules/,               // not process this folder
-        test: /\.tsx?$/,                       // loader for ts and tsx files
-        use: [                      // name of the loader
+        // ts-loader умеет работать с JSX
+        // Если б мы не использовали тайпскрипт: нужен был бы babel-loader
+        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        use: [
             {
                 loader: 'ts-loader',
                 options: {
                     transpileOnly: true,
                     getCustomTransformers: () => ({
-                        before: [isDev && ReactRefreshTypescript()].filter(Boolean)
-                    })
+                        before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
+                    }),
                 }
             }
         ]
     }
 
-    // const babelLoader = {
-    //     test: /\.tsx?$/,
-    //     exclude: /node_modules/,
-    //     use: {
-    //         loader: "babel-loader",
-    //         options: {
-    //             presets: [
-    //                 '@babel/preset-env',
-    //                 "@babel/preset-typescript",
-    //                 [
-    //                     "@babel/preset-react",
-    //                     {
-    //                         runtime: isDev ? 'automatic' : 'classic',
-    //                     }
-    //                 ]
-    //             ]
-    //         }
-    //     }
-    // }
+    // const babelLoader = buildBabelLoader(options);
 
-    //const babelLoader = buildBabelLoader(options)
 
     return [
-        // порядок важен
         assetLoader,
         scssLoader,
         tsLoader,
-        //babelLoader,
+        // babelLoader,
         svgrLoader
     ]
 }
