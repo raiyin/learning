@@ -1,18 +1,18 @@
-const enum UserRole {
-    USER = 'user',
-    ADMIN = 'admin',
-}
+// const enum UserRole {
+//     USER = 'user',
+//     ADMIN = 'admin',
+// }
 
-enum UserRole {
-    USER = 'user',
-    ADMIN = 'admin',
-}
+// enum UserRole {
+//     USER = 'user',
+//     ADMIN = 'admin',
+// }
 
-type ValueOf<T> = T[keyof T]
+// type ValueOf<T> = T[keyof T]
 
-const UserRole = {
-    ADMIN: 'admin',
-    USER: 'user',
-} as const;
+// const UserRole = {
+//     ADMIN: 'admin',
+//     USER: 'user',
+// } as const;
 
-type UserRole = ValueOf<typeof UserRole>
+// type UserRole = ValueOf<typeof UserRole>

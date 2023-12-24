@@ -1,14 +1,14 @@
-interface User {
-    username: string;
-}
+// interface User {
+//     username: string;
+// }
 
-const obj: User = {
-    username: '123'
-}
+// const obj: User = {
+//     username: '123'
+// }
 
-function userFn(user: Readonly<User>) {
-    user.username = 'nkmdvfnkdfj'; // Error
-}
+// function userFn(user: Readonly<User>) {
+//     user.username = 'nkmdvfnkdfj'; // Error
+// }
 
-userFn(obj)
-console.log(obj)
+// userFn(obj)
+// console.log(obj)
