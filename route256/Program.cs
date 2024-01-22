@@ -9,36 +9,31 @@ namespace route256
     {
         static void Main(string[] args)
         {
-            var inParams = Console.ReadLine().Split(new char[] { ' ' });
-            int fCount = int.Parse(inParams[0]);
-            int cCount = int.Parse(inParams[1]);
+            int setLength = int.Parse(Console.ReadLine());
+            List<string> unswerList = new List<string>();
+            Dictionary<string, int> ships = new Dictionary<string, int>();
 
-            var friends = Console.ReadLine().Split(new char[] { ' ' }).Select(item => int.Parse(item)).ToList();
-            var cards = new List<int>();
-            cards.AddRange(Enumerable.Range(1, cCount));
-
-            int[] indexes = new int[fCount];
-
-            while (friends.Any(item => item != -1))
+            for (int i = 0; i < setLength; i++)
             {
-                int smallest = friends.Where(item => item != -1).Min();
-                int index = friends.IndexOf(smallest);
-                friends[index] = -1;
+                ships.Clear();
+                ships.Add("1", 0);
+                ships.Add("2", 0);
+                ships.Add("3", 0);
+                ships.Add("4", 0);
 
-                if (cards.Any(item => item >= smallest + 1))
+                var shipsStrings = Console.ReadLine().Split(' ');
+                foreach (string s in shipsStrings)
                 {
-                    var cSmallest = cards.Where(item => item >= (smallest + 1)).Min();
-                    cards.Remove(cSmallest);
-                    indexes[index] = cSmallest;
+                    ships[s] = ships[s] + 1;
                 }
-                else
-                {
-                    Console.WriteLine("-1");
-                    return;
-                }
+
+                string currentUnswer = (ships["1"] == 4 && ships["2"] == 3 && ships["3"] == 2 && ships["4"] == 1) ? "YES" : "NO";
+                unswerList.Add(currentUnswer);
             }
-
-            Console.WriteLine(string.Join(" ", indexes));
+            foreach (string s in unswerList)
+            {
+                Console.WriteLine(s);
+            }
         }
     }
 }
