@@ -83,6 +83,8 @@ h1 {
 
 .board {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -99,4 +101,14 @@ h1 {
   position: absolute;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.btn{
+  background: linear-gradient(90deg, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 5px;
 }
